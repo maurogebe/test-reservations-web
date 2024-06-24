@@ -1,4 +1,3 @@
-// RoutesWrapper.tsx
 import { useRoutes, RouteObject } from "react-router-dom";
 import Layout from "../components/layout";
 import ProductList from "./product/ProductList";
@@ -11,8 +10,7 @@ const routes = (): RouteObject[] => [
     children: [
       { index: true, element: <></> },
       { path: '/items', element: <ProductList /> },
-      { path: '/items/:id', element: <ProductDetail /> },
-      // { path: '/dashboard', element: <Dashboard /> }
+      { path: '/items/:id', element: <ProductDetail /> }
     ]
   }
 ];

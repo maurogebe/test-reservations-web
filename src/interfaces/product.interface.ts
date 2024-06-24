@@ -4,11 +4,11 @@ import { Price } from "./price.interface";
 export interface Product {
   id: string;
   title: string;
-  seller: string;
   price: Price;
   picture: string;
   condition: string;
   free_shipping: boolean;
+  seller?: string;
   sold_quantity?: number;
   description?: string;
   path_from_root?: string[];

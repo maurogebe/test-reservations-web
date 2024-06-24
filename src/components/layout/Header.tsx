@@ -28,7 +28,7 @@ const Header = () => {
     <header className='bg-primary w-100 p-1 flex flex-0 flex-center'>
       <div className='contain m-auto flex'>
         <Link className='flex flex-center' to='/'>
-          <img className='w-8' src={logo} alt="Logo" />
+          <img className='w-8' src={logo} alt="Logo de Mercado Libre" />
         </Link>
         <form className='flex w-100' onSubmit={navigateToSearch}>
           <input

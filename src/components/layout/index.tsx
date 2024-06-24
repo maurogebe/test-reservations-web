@@ -1,5 +1,4 @@
-import React, { memo, Suspense } from 'react'
-import { Loading } from '../shared'
+import React, { memo } from 'react'
 import { Outlet } from 'react-router-dom'
 import Header from './Header'
 import { CommonState } from '../../store/base/commonSlice'
@@ -11,7 +10,6 @@ const Layout: React.FC = () => {
 	const { path_from_root }: CommonState = useSelector((state: RootState) => state.base.common)
 
 	return (
-		<Suspense fallback={<Loading loading={true} />}>
 		<div className='flex flex-col h-100'>
 			<Header />
 			<main className='flex-auto w-100 bg-gray'>
@@ -29,7 +27,6 @@ const Layout: React.FC = () => {
 				</div>
 			</main>
 		</div>
-		</Suspense>
 	)
 }
 
