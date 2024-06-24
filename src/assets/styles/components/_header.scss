@@ -1,0 +1,28 @@
+.searchInput {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: none;
+  background-color: $white-color;
+  margin-left: 0.5rem;
+}
+
+.searchInput::placeholder {
+  color: $gray-color;
+}
+
+.searchInput:focus {
+  outline: none;
+}
+
+.searchIcon {
+  background-color: $gray-color;
+  padding: 0.5rem;
+  cursor: pointer;
+  border: none;
+}
+
+.link-reset {
+  text-decoration: none; // Elimina la subrayado
+  color: inherit; // Inherita el color del contenedor
+}
