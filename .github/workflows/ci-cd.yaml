@@ -39,7 +39,7 @@ jobs:
     - name: Deploy
       run: |
         npm run build
-        firebase use erp-ps-v2
+        firebase use quickpharma-b8686
         firebase deploy --only hosting
       env:
         CI: false
