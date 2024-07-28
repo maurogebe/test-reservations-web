@@ -30,7 +30,6 @@ jobs:
       run: npm install -g firebase-tools
 
     - name: Setup Google Cloud Credentials
-      run: echo "Setting up credentials"
       env:
         FIREBASE_SERVICE_ACCOUNT_KEY: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}
       run: |
