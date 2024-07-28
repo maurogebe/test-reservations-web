@@ -1,16 +1,32 @@
 import { useRoutes, RouteObject } from "react-router-dom";
 import Layout from "../components/layout";
-import ProductList from "./product/ProductList";
-import ProductDetail from "./product/ProductDetail";
+import SignIn from "./auth/SignIn";
+import ProtectedRoute from "../components/routes/ProtectedRoute";
+import PublicRoute from "../components/routes/PublicRoute";
+import Dashboard from "./dashboard";
+import Medicaments from "./medicament";
 
-const routes = (): RouteObject[] => [
+export const routes = (): RouteObject[] => [
   {
     path: '/',
-    element: <Layout />,
+    element: <ProtectedRoute />,
     children: [
       { index: true, element: <></> },
-      { path: '/items', element: <ProductList /> },
-      { path: '/items/:id', element: <ProductDetail /> }
+      {
+        element: <Layout />,
+        children: [
+          { path: '/dashboard', element: <Dashboard /> },
+          { path: '/medicament', element: <Medicaments /> },
+        ]
+      },
+    ]
+  },
+  {
+    path: '/',
+    element: <PublicRoute />,
+    children: [
+      { index: true, element: <></> },
+      { path: '/sign-in', element: <SignIn /> }
     ]
   }
 ];

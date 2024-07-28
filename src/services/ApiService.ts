@@ -7,6 +7,7 @@ interface FetchDataParams {
   params?: {
     q: string
   };
+  data?: any;
 }
 
 const ApiService = {
@@ -16,6 +17,7 @@ const ApiService = {
         url: param.url,
         method: param.method,
         params: param.params,
+        data: param.data
       })
         .then((response: AxiosResponse<any>) => {
           resolve(response);

@@ -3,6 +3,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { BrowserRouter } from "react-router-dom";
 import store, { persistor } from './store'
 import RoutesWrapper from "./views";
+import { ChakraProvider } from "@chakra-ui/react";
 
 function App() {
 
@@ -10,7 +11,9 @@ function App() {
     <Provider store={store}>
 			<PersistGate loading={null} persistor={persistor}>
 				<BrowserRouter>
-          <RoutesWrapper />
+					<ChakraProvider>
+          	<RoutesWrapper />
+					</ChakraProvider>
 				</BrowserRouter >
 			</PersistGate>
 		</Provider>
