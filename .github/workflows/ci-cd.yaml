@@ -33,6 +33,9 @@ jobs:
       run: echo "Setting up credentials"
       env:
         FIREBASE_SERVICE_ACCOUNT_KEY: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}
+      run: |
+        echo "$FIREBASE_SERVICE_ACCOUNT_KEY" > ./firebase-key.json
+        echo "GOOGLE_APPLICATION_CREDENTIALS=firebase-key.json" >> $GITHUB_ENV
 
     - name: Deploy
       run: |
