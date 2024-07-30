@@ -5,6 +5,9 @@ import ProtectedRoute from "../components/routes/ProtectedRoute";
 import PublicRoute from "../components/routes/PublicRoute";
 import Dashboard from "./dashboard";
 import Medicaments from "./medicament";
+import Allergies from "./allergy";
+import Patients from "./patient";
+import Sales from "./sale";
 
 export const routes = (): RouteObject[] => [
   {
@@ -16,7 +19,10 @@ export const routes = (): RouteObject[] => [
         element: <Layout />,
         children: [
           { path: '/dashboard', element: <Dashboard /> },
+          { path: '/allergy', element: <Allergies /> },
+          { path: '/patient', element: <Patients /> },
           { path: '/medicament', element: <Medicaments /> },
+          { path: '/sale', element: <Sales /> },
         ]
       },
     ]

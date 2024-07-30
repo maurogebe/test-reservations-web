@@ -1,25 +1,26 @@
 import { createAsyncThunk, createSlice, current, PayloadAction } from '@reduxjs/toolkit';
-import { Medicament } from '../../../interfaces/medicament.interface';
 import { apiCreateMedicament, apiGetMedicaments, apiUpdateMedicament } from '../../../services/MedicamentService';
 import { toast } from '../../../App';
+import { Allergy } from '../../../interfaces/allergy.interface';
+import { apiCreateAllergy, apiGetAllergies, apiUpdateAllergy } from '../../../services/AllergyService';
 
 export interface DataState {
   loading: boolean;
-  medicaments: Medicament[]
+  allergies: Allergy[]
 }
 
 const initialState: DataState = {
   loading: false,
-  medicaments: []
+  allergies: []
 };
 
-export const getMedicaments: any = createAsyncThunk('medicament/data/getMedicaments', async (data: any) => {
+export const getAllergies: any = createAsyncThunk('allergy/data/getAllergies', async (data: any) => {
   try {
-      const response = await apiGetMedicaments(data);
+      const response = await apiGetAllergies(data);
       return response.data
   } catch (error) {
     toast({
-      title: 'Error obteniendo los medicamentos.',
+      title: 'Error obteniendo las alergias.',
       status: 'error',
       duration: 4000,
       isClosable: true
@@ -27,11 +28,12 @@ export const getMedicaments: any = createAsyncThunk('medicament/data/getMedicame
   }
 });
 
-export const createMedicament: any = createAsyncThunk('medicament/data/createMedicament', async (data: Medicament, { rejectWithValue }) => {
+export const createAllergy: any = createAsyncThunk('allergy/data/createAllergy', async (data: Allergy, { rejectWithValue }) => {
   try {
-      const response = await apiCreateMedicament(data);
+      const response = await apiCreateAllergy(data);
       toast({
-        title: 'Medicamento creado.',
+        title: 'Alergia creado.',
+        // description: "We've created your account for you.",
         status: 'success',
         duration: 4000,
         isClosable: true
@@ -39,7 +41,7 @@ export const createMedicament: any = createAsyncThunk('medicament/data/createMed
       return response.data
   } catch (error: any) {
     toast({
-      title: 'Error creando el medicamento.',
+      title: 'Error creando la alergia.',
       status: 'error',
       duration: 4000,
       isClosable: true
@@ -48,11 +50,11 @@ export const createMedicament: any = createAsyncThunk('medicament/data/createMed
   }
 });
 
-export const updateMedicament: any = createAsyncThunk('medicament/data/updateMedicament', async (data: Medicament, { rejectWithValue }) => {
+export const updateAllergy: any = createAsyncThunk('allergy/data/updateAllergy', async (data: Allergy, { rejectWithValue }) => {
   try {
-      const response = await apiUpdateMedicament(data);
+      const response = await apiUpdateAllergy(data);
       toast({
-        title: 'Medicamento actualizado.',
+        title: 'Alergia actualizado.',
         status: 'success',
         duration: 4000,
         isClosable: true
@@ -60,7 +62,7 @@ export const updateMedicament: any = createAsyncThunk('medicament/data/updateMed
       return response.data
   } catch (error: any) {
     toast({
-      title: 'Error actualizando el medicamento.',
+      title: 'Error actualizando la alergia.',
       status: 'error',
       duration: 4000,
       isClosable: true
@@ -70,45 +72,37 @@ export const updateMedicament: any = createAsyncThunk('medicament/data/updateMed
 });
 
 const dataSlice = createSlice({
-  name: 'medicament/data',
+  name: 'allergy/data',
   initialState,
-  reducers: {
-    emptyMedicaments: (state) => {
-      state.medicaments = []
-    }
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getMedicaments.fulfilled, (state, action: PayloadAction<Medicament[]>) => {
-        state.medicaments = action.payload;
+      .addCase(getAllergies.fulfilled, (state, action: PayloadAction<Allergy[]>) => {
+        state.allergies = action.payload;
         state.loading = false;
       })
-      .addCase(getMedicaments.pending, (state) => {
+      .addCase(getAllergies.pending, (state) => {
         state.loading = true;
       })
-      .addCase(createMedicament.fulfilled, (state, action: PayloadAction<Medicament>) => {
+      .addCase(createAllergy.fulfilled, (state, action: PayloadAction<Allergy>) => {
         const currentState = current(state);
-        state.medicaments = [...currentState.medicaments, action.payload];
+        state.allergies = [...currentState.allergies, action.payload];
         state.loading = false;
       })
-      .addCase(createMedicament.pending, (state) => {
+      .addCase(createAllergy.pending, (state) => {
         state.loading = true;
       })
-      .addCase(updateMedicament.fulfilled, (state, action: PayloadAction<Medicament>) => {
+      .addCase(updateAllergy.fulfilled, (state, action: PayloadAction<Allergy>) => {
         const currentState = current(state);
-        state.medicaments = currentState.medicaments.map((med) =>
+        state.allergies = currentState.allergies.map((med) =>
           med.id === action.payload.id ? action.payload : med
         );
         state.loading = false;
       })
-      .addCase(updateMedicament.pending, (state) => {
+      .addCase(updateAllergy.pending, (state) => {
         state.loading = true;
       });
   },
 });
-
-export const {
-  emptyMedicaments
-} = dataSlice.actions
 
 export default dataSlice.reducer;

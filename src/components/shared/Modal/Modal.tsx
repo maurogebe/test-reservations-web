@@ -1,25 +1,30 @@
 import { useRef } from "react"
 import { Box, Button, ModalBody, Modal as ModalChakra, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure } from "@chakra-ui/react"
 
-export const Modal = ({ title, content, button, textBtn, onClick = () => {} }: any) => {
+export const Modal = ({ title, reset = () => {}, content, button, textBtn, onClick = () => {} }: any) => {
 
   const { isOpen, onOpen, onClose } = useDisclosure()
   
   const initialRef = useRef<any>(null)
   const finalRef = useRef<any>(null)
 
+  const onOpenFn = () => {
+    onOpen();
+    reset();
+  }
+
   const onClickBtn = async() => {
     try {
       await onClick();
       onClose();
     } catch (error) {
-      
+      console.log(error)
     }
   }
 
   return (
     <>
-      <Box onClick={onOpen}>{ button }</Box>
+      <Box onClick={onOpenFn}>{ button }</Box>
 
       <ModalChakra
         initialFocusRef={initialRef}

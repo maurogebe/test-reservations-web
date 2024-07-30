@@ -5,7 +5,7 @@ export interface State {
     medicamentSelected: Medicament
 }
 
-const initialState: State = {
+export const initialState: State = {
     medicamentSelected: {
         id: 0,
         name: '',

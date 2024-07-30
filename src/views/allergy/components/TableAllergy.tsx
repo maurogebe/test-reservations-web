@@ -3,13 +3,13 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../store";
 import { TableRow } from "./TableRow";
 
-export const TableMedicament = ({ reset, register, errors, handleSubmit }: any) => {
+export const TableAllergy = ({ reset, register, errors, handleSubmit }: any) => {
   
-  const columns = ["Nombre", "Descripción", "Costo", "Stock", ""]
+  const columns = ["Nombre", "Descripción", ""]
   
   const textColor = useColorModeValue("gray.700", "white");
 
-	const { medicaments } = useSelector((state: RootState) => state.medicament.data)
+	const { allergies } = useSelector((state: RootState) => state.allergy.data)
 
   return (
     <Table w="100%" variant='simple' color={textColor}>
@@ -25,7 +25,7 @@ export const TableMedicament = ({ reset, register, errors, handleSubmit }: any) 
         </Tr>
       </Thead>
       <Tbody>
-        {medicaments?.map((row: any) => {
+        {allergies?.map((row: any) => {
           return (
             <TableRow
               key={`${row.id}-${row.name}`}

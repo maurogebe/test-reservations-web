@@ -1,20 +1,20 @@
 import { Button, Td, Text, Tr } from "@chakra-ui/react"
-import { setMedicamentSelected } from "../store/stateSlice"
+import { setPatientSelected } from "../store/stateSlice"
 import { useDispatch } from "react-redux"
-import { FormMedicament } from "./FormMedicament";
+import { FormPatient } from "./FormPatient";
 import { Modal } from "../../../components/shared/Modal/Modal";
-import { updateMedicament } from "../store/dataSlice";
+import { updateAllergy } from "../../allergy/store/dataSlice";
 
-export const TableRow = ({ reset, register, errors, handleSubmit = () => {}, textColor, row }: any) => {
+export const TableRow = ({ reset, register, errors, handleSubmit = () => {}, textColor, row, selectedAllergies, setSelectedAllergies }: any) => {
 
   const dispatch = useDispatch();
 
   const onEdit = () => {
-    dispatch(setMedicamentSelected(row))
+    dispatch(setPatientSelected(row))
   }
 
   const onSubmit = async(data: any) => {
-    await dispatch(updateMedicament(data));
+    await dispatch(updateAllergy(data));
   }
 
   return (
@@ -37,25 +37,25 @@ export const TableRow = ({ reset, register, errors, handleSubmit = () => {}, tex
           fontWeight="bold"
           minWidth="100%"
         >
-          {row?.description}
+          {row?.email}
         </Text>
       </Td>
 
       <Td pl="0px">
         <Text fontSize="md" color={textColor} fontWeight="bold">
-          {row?.cost}
+          {row?.healthInsuranceNumber}
         </Text>
       </Td>
 
       <Td>
         <Text fontSize="md" color={textColor} fontWeight="bold">
-          {row?.stock}
+          {row?.birthDate}
         </Text>
       </Td>
       <Td>
         <Modal
-          title="Editar Medicamento"
-          content={<FormMedicament reset={reset} register={register} errors={errors} />}
+          title="Editar Paciente"
+          content={<FormPatient reset={reset} register={register} errors={errors} selectedAllergies={selectedAllergies} setSelectedAllergies={setSelectedAllergies} />}
           textBtn="Editar"
           onClick={handleSubmit(onSubmit)}
           button={

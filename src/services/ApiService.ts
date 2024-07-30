@@ -8,6 +8,7 @@ interface FetchDataParams {
     q: string
   };
   data?: any;
+  headers?: any;
 }
 
 const ApiService = {
@@ -16,6 +17,7 @@ const ApiService = {
       BaseService({
         url: param.url,
         method: param.method,
+        headers: param.headers,
         params: param.params,
         data: param.data
       })

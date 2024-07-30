@@ -110,7 +110,7 @@ export default function Dashboard(props: any) {
 				<Portal>
 					<AdminNavbar
 						onOpen={onOpen}
-						logoText={'PURITY UI DASHBOARD'}
+						logoText={'QUICK PHARMA'}
 						brandText={getActiveRoute(routes)}
 						secondary={getActiveNavbar(routes)}
 						fixed={fixed}
@@ -123,9 +123,6 @@ export default function Dashboard(props: any) {
 					</PanelContainer>
 				</PanelContent>
 				<Footer />
-				<Portal>
-					<FixedPlugin fixed={fixed} />
-				</Portal>
 				<Configurator
 					secondary={getActiveNavbar(routes)}
 					isOpen={isOpen}

@@ -3,7 +3,9 @@ import { PersistGate } from "redux-persist/integration/react";
 import { BrowserRouter } from "react-router-dom";
 import store, { persistor } from './store'
 import RoutesWrapper from "./views";
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, createStandaloneToast } from "@chakra-ui/react";
+
+const { ToastContainer, toast }: any = createStandaloneToast();
 
 function App() {
 
@@ -12,6 +14,7 @@ function App() {
 			<PersistGate loading={null} persistor={persistor}>
 				<BrowserRouter>
 					<ChakraProvider>
+    				<ToastContainer />
           	<RoutesWrapper />
 					</ChakraProvider>
 				</BrowserRouter >
@@ -21,3 +24,4 @@ function App() {
 }
 
 export default App;
+export { toast };

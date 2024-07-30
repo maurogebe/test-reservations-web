@@ -5,27 +5,24 @@ import Card from "../../components/shared/Card/Card";
 import CardHeader from "../../components/shared/Card/CardHeader";
 import CardBody from "../../components/shared/Card/CardBody";
 import { useDispatch } from "react-redux";
-import { createMedicament, getMedicaments } from "./store/dataSlice";
 import { useEffect } from "react";
 import { Modal } from "../../components/shared/Modal/Modal";
-import { FormMedicament } from "./components/FormMedicament";
-import { TableMedicament } from "./components/TableMedicament";
+import { FormAllergy } from "./components/FormAllergy";
+import { TableAllergy } from "./components/TableAllergy";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
-import { initialState, setMedicamentSelected } from "./store/stateSlice";
+import { initialState, setAllergySelected } from "./store/stateSlice";
+import { createAllergy, getAllergies } from "./store/dataSlice";
 
-injectReducer('medicament', reducer)
+injectReducer('allergy', reducer)
 
 const schema = yup.object().shape({
   name: yup.string().required("Nombre es requerido"),
-  form: yup.string().required("Forma es requerida"),
-  stock: yup.number().required("Stock es requerido"),
-  cost: yup.number().required("Costo es requerido"),
-  description: yup.string().required("Descripción es requerida"),
+  description: yup.string().required("Descripción es requerido")
 });
 
-const Medicaments = () => {
+const Allergies = () => {
 
   const textColor = useColorModeValue("gray.700", "white");
 	const dispatch = useDispatch()
@@ -35,16 +32,16 @@ const Medicaments = () => {
   });
 
 	useEffect(() => {
-		dispatch(getMedicaments())
+		dispatch(getAllergies())
 	}, [])
 
   const resetForm = () => {
-    dispatch(setMedicamentSelected(initialState.medicamentSelected))
-    reset(initialState.medicamentSelected)
+    dispatch(setAllergySelected(initialState.allergySelected))
+    reset(initialState.allergySelected)
   }
 
   const onSubmit = async(data: any) => {
-    await dispatch(createMedicament(data));
+    await dispatch(createAllergy(data));
   }
 
   return (
@@ -52,10 +49,10 @@ const Medicaments = () => {
       <Card overflowX={{ sm: "scroll", xl: "hidden" }}>
         <CardHeader p='6px 0px 22px 0px'>
           <Flex justify='space-between' align='center' minHeight='60px' w='100%'>
-            <Text fontSize='xl' color={textColor} fontWeight='bold'>Medicamentos</Text>
+            <Text fontSize='xl' color={textColor} fontWeight='bold'>Alergias</Text>
             <Modal
-              title="Crear Medicamento"
-              content={<FormMedicament reset={reset} register={register} errors={errors} />}
+              title="Crear Alergia"
+              content={<FormAllergy reset={reset} register={register} errors={errors} />}
               textBtn="Crear"
               onClick={handleSubmit(onSubmit)}
               reset={resetForm}
@@ -77,7 +74,7 @@ const Medicaments = () => {
           </Flex>
         </CardHeader>
         <CardBody>
-          <TableMedicament
+          <TableAllergy
             reset={reset}
             register={register}
             errors={errors}
@@ -89,4 +86,4 @@ const Medicaments = () => {
   );
 };
 
-export default Medicaments;
+export default Allergies;

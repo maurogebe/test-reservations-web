@@ -1,20 +1,20 @@
 import { Button, Td, Text, Tr } from "@chakra-ui/react"
-import { setMedicamentSelected } from "../store/stateSlice"
+import { setAllergySelected } from "../store/stateSlice"
 import { useDispatch } from "react-redux"
-import { FormMedicament } from "./FormMedicament";
+import { FormAllergy } from "./FormAllergy";
 import { Modal } from "../../../components/shared/Modal/Modal";
-import { updateMedicament } from "../store/dataSlice";
+import { updateAllergy } from "../store/dataSlice";
 
 export const TableRow = ({ reset, register, errors, handleSubmit = () => {}, textColor, row }: any) => {
 
   const dispatch = useDispatch();
 
   const onEdit = () => {
-    dispatch(setMedicamentSelected(row))
+    dispatch(setAllergySelected(row))
   }
 
   const onSubmit = async(data: any) => {
-    await dispatch(updateMedicament(data));
+    await dispatch(updateAllergy(data));
   }
 
   return (
@@ -41,21 +41,10 @@ export const TableRow = ({ reset, register, errors, handleSubmit = () => {}, tex
         </Text>
       </Td>
 
-      <Td pl="0px">
-        <Text fontSize="md" color={textColor} fontWeight="bold">
-          {row?.cost}
-        </Text>
-      </Td>
-
-      <Td>
-        <Text fontSize="md" color={textColor} fontWeight="bold">
-          {row?.stock}
-        </Text>
-      </Td>
       <Td>
         <Modal
-          title="Editar Medicamento"
-          content={<FormMedicament reset={reset} register={register} errors={errors} />}
+          title="Editar Alergia"
+          content={<FormAllergy reset={reset} register={register} errors={errors} />}
           textBtn="Editar"
           onClick={handleSubmit(onSubmit)}
           button={
