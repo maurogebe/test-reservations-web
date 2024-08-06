@@ -1,20 +1,20 @@
 import { Button, Td, Text, Tr } from "@chakra-ui/react"
-import { setPatientSelected } from "../store/stateSlice"
+import { setMedicamentSelected } from "../store/stateSlice"
 import { useDispatch } from "react-redux"
-import { FormPatient } from "./FormPatient";
+import { FormMedicament } from "./FormMedicament";
 import { Modal } from "../../../components/shared/Modal/Modal";
-import { updatePatient } from "../store/dataSlice";
+import { updateMedicament } from "../store/dataSlice";
 
-export const TableRow = ({ reset, register, errors, handleSubmit = () => {}, textColor, row, selectedAllergies, setSelectedAllergies }: any) => {
+export const TableRow = ({ reset, register, errors, handleSubmit = () => {}, textColor, row }: any) => {
 
   const dispatch = useDispatch();
 
   const onEdit = () => {
-    dispatch(setPatientSelected(row))
+    dispatch(setMedicamentSelected(row))
   }
 
   const onSubmit = async(data: any) => {
-    await dispatch(updatePatient(data));
+    await dispatch(updateMedicament(data));
   }
 
   return (
@@ -37,25 +37,25 @@ export const TableRow = ({ reset, register, errors, handleSubmit = () => {}, tex
           fontWeight="bold"
           minWidth="100%"
         >
-          {row?.email}
+          {row?.description}
         </Text>
       </Td>
 
       <Td pl="0px">
         <Text fontSize="md" color={textColor} fontWeight="bold">
-          {row?.healthInsuranceNumber}
+          {row?.cost}
         </Text>
       </Td>
 
       <Td>
         <Text fontSize="md" color={textColor} fontWeight="bold">
-          {row?.birthDate}
+          {row?.stock}
         </Text>
       </Td>
       <Td>
         <Modal
-          title="Editar Paciente"
-          content={<FormPatient reset={reset} register={register} errors={errors} selectedAllergies={selectedAllergies} setSelectedAllergies={setSelectedAllergies} />}
+          title="Editar Medicamento"
+          content={<FormMedicament reset={reset} register={register} errors={errors} />}
           textBtn="Editar"
           onClick={handleSubmit(onSubmit)}
           button={

@@ -11,7 +11,6 @@ import { CardHeaderComponent } from './additions/card/CardHeader';
 import { MainPanelComponent } from './additions/layout/MainPanel';
 import { PanelContentComponent } from './additions/layout/PanelContent';
 import { PanelContainerComponent } from './additions/layout/PanelContainer';
-import {  MultiSelectTheme } from 'chakra-multiselect'
 import { mode } from '@chakra-ui/theme-tools';
 
 export default extendTheme({
@@ -43,6 +42,5 @@ export default extendTheme({
     MainPanel: MainPanelComponent,
     PanelContent: PanelContentComponent,
     PanelContainer: PanelContainerComponent,
-		MultiSelect: MultiSelectTheme,
   },
 });

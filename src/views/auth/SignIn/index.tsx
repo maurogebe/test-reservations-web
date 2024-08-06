@@ -13,35 +13,38 @@ import {
   FormErrorMessage,
   Text,
   FormLabel,
-  useColorModeValue
+  useColorModeValue,
+  InputGroup,
+  InputRightElement
 } from "@chakra-ui/react";
-// import { FaUserAlt, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 import useAuth from "../../../utils/hooks/useAuth";
 import { signInImage } from "../../../assets/images";
-
-// const CFaUserAlt = chakra(FaUserAlt);
-// const CFaLock = chakra(FaLock);
+import { useEffect, useState } from "react";
+import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import { useConfig } from "../../../utils/hooks/useConfig";
 
 injectReducer('signin', reducer)
 
 const schema = yup.object().shape({
   email: yup.string().email("Invalid email address").required("Email is required"),
-  password: yup.string().min(6, "Password must be at least 6 characters").required("Password is required"),
+  password: yup.string().min(8, "Password must be at least 8 characters").required("Password is required"),
 });
 
 const SignIn = () => {
 
   const { signIn } = useAuth();
-  const titleColor = useColorModeValue("teal.300", "teal.200");
   const textColor = useColorModeValue("gray.400", "white");
+  const { themeColor, primaryColorLevel } = useConfig()
+
+	const color = themeColor
+	const colorLevel = primaryColorLevel
   
-  // const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [isError, setIsError] = useState<boolean>(false);
 
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(schema),
   });
-
-  // const handleShowClick = () => setShowPassword(!showPassword);
 
   const onSubmit = (data: any) => {
     signIn(data)
@@ -68,7 +71,7 @@ const SignIn = () => {
             background='transparent'
             p='48px'
             mt={{ md: "150px", lg: "80px" }}>
-            <Heading color={titleColor} fontSize='32px' mb='10px'>
+            <Heading color={`${color}.${colorLevel}`} fontSize='32px' mb='10px'>
               Bienvenido
             </Heading>
             <Text
@@ -79,49 +82,64 @@ const SignIn = () => {
               fontSize='14px'>
               Ingresa tu correo y contraseña para iniciar sesión.
             </Text>
-            <FormControl as="form" onSubmit={handleSubmit(onSubmit)}>
-              <FormLabel ms='4px' fontSize='sm' fontWeight='normal'>
-                Correo
-              </FormLabel>
-              <Input
-                borderRadius='15px'
-                mb='24px'
-                fontSize='sm'
-                type='text'
-                size='lg'
-                {...register('email')}
-              />
-              <FormErrorMessage>{errors.email && errors.email.message}</FormErrorMessage>
-              <FormLabel ms='4px' fontSize='sm' fontWeight='normal'>
-                Contraseña
-              </FormLabel>
-              <Input
-                borderRadius='15px'
-                mb='36px'
-                fontSize='sm'
-                type='password'
-                size='lg'
-                {...register('password')}
-              />
-              <FormErrorMessage>{errors.password && errors.password.message}</FormErrorMessage>
-              <Button
-                fontSize='16px'
-                type='submit'
-                bg='teal.300'
-                w='100%'
-                h='45'
-                mb='20px'
-                color='white'
-                mt='20px'
-                _hover={{
-                  bg: "teal.200",
-                }}
-                _active={{
-                  bg: "teal.400",
-                }}>
-                Iniciar sesión
-              </Button>
-            </FormControl>
+            <Box as="form" onSubmit={handleSubmit(onSubmit)}>
+              <FormControl mb='24px' isInvalid={!!errors.email}>
+                <FormLabel ms='4px' fontSize='sm' fontWeight='normal'>
+                  Correo
+                </FormLabel>
+                <Input
+                  id='email'
+                  borderRadius='15px'
+                  fontSize='sm'
+                  type='text'
+                  size='lg'
+                  {...register('email')}
+                />
+                <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
+              </FormControl>
+              <FormControl mb='24px' isInvalid={!!errors.password}>
+                <FormLabel ms='4px' fontSize='sm' fontWeight='normal'>
+                  Contraseña
+                </FormLabel>
+                <InputGroup>
+                  <Input
+                    id='password'
+                    borderRadius='15px'
+                    fontSize='sm'
+                    type={showPassword ? 'text' : 'password'}
+                    size='lg'
+                    {...register('password')}
+                  />
+                  <InputRightElement height='100%' alignItems='center'>
+                    { 
+                      showPassword ? (
+                        <ViewOffIcon color='teal.300' cursor='pointer' onClick={() => setShowPassword(false)} />
+                      ) : (
+                        <ViewIcon color='teal.300' cursor='pointer' onClick={() => setShowPassword(true)} />
+                      ) 
+                    }
+                  </InputRightElement>
+                </InputGroup>
+                <FormErrorMessage>{errors.password?.message}</FormErrorMessage>
+              </FormControl>
+                <Button
+                  fontSize='16px'
+                  type='submit'
+                  bg='teal.300'
+                  w='100%'
+                  h='45'
+                  mb='20px'
+                  color='white'
+                  mt='20px'
+                  _hover={{
+                    bg: "teal.200",
+                  }}
+                  _active={{
+                    bg: "teal.400",
+                  }}>
+                  Iniciar sesión
+                </Button>
+            </Box>
           </Flex>
         </Flex>
         <Box

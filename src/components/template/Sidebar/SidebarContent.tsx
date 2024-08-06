@@ -15,6 +15,8 @@ import { Separator } from "../Separator/Separator";
 import { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { Route } from "../../../routes";
+import { RootState } from "../../../store";
+import { useSelector } from "react-redux";
 
 // this function creates the links and collapses that appear in the sidebar (left menu)
 
@@ -23,6 +25,9 @@ const SidebarContent = ({ logoText, routes }: any) => {
 
     // to check for active links and opened collapses
   let location = useLocation();
+    
+  const { themeColor, primaryColorLevel } = useSelector((state: RootState) => state.theme.state);
+
   // this is for the rest of the collapses
   const [state, setState] = useState<any>({});
 
@@ -101,10 +106,10 @@ const SidebarContent = ({ logoText, routes }: any) => {
             >
               <Flex>
                 {typeof prop.icon === "string" ? (
-                  <Icon>{prop.icon}</Icon>
+                  <Icon color={`${themeColor}.${primaryColorLevel}`}>{prop.icon}</Icon>
                 ) : (
                   <IconBox
-                    bg="teal.300"
+                    bg={`${themeColor}.${primaryColorLevel}`}
                     color="white"
                     h="30px"
                     w="30px"
@@ -151,11 +156,11 @@ const SidebarContent = ({ logoText, routes }: any) => {
             >
               <Flex>
                 {typeof prop.icon === "string" ? (
-                  <Icon>{prop.icon}</Icon>
+                  <Icon color={`${themeColor}.${primaryColorLevel}`}>{prop.icon}</Icon>
                 ) : (
                   <IconBox
                     bg={inactiveBg}
-                    color="teal.300"
+                    color={`${themeColor}.${primaryColorLevel}`}
                     h="30px"
                     w="30px"
                     me="12px"

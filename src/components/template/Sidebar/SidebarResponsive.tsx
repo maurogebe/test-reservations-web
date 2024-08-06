@@ -23,11 +23,15 @@ import { Separator } from "../Separator/Separator";
 import { useRef, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { Route } from "../../../routes";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store";
 
 function SidebarResponsive(props: any) {
 
     // to check for active links and opened collapses
     let location = useLocation();
+    
+    const { themeColor, primaryColorLevel } = useSelector((state: RootState) => state.theme.state);
 
     // this is for the rest of the collapses
     const [state, setState] = useState<any>({});
@@ -103,7 +107,7 @@ function SidebarResponsive(props: any) {
               >
                 <Flex>
                   {typeof prop.icon === "string" ? (
-                    <Icon>{prop.icon}</Icon>
+                    <Icon color={`${themeColor}.${primaryColorLevel}`}>{prop.icon}</Icon>
                   ) : (
                     <IconBox
                       bg="teal.300"
@@ -151,7 +155,7 @@ function SidebarResponsive(props: any) {
               >
                 <Flex>
                   {typeof prop.icon === "string" ? (
-                    <Icon>{prop.icon}</Icon>
+                    <Icon color={`${themeColor}.${primaryColorLevel}`}>{prop.icon}</Icon>
                   ) : (
                     <IconBox
                       bg={inactiveBg}

@@ -1,4 +1,4 @@
-import { Box, Button, Divider, Flex, Input, Text, Tooltip, useColorModeValue } from "@chakra-ui/react";
+import { Box, Divider, Flex, Input, Text, Tooltip, useColorModeValue } from "@chakra-ui/react";
 import { injectReducer, RootState } from "../../store";
 import reducer from "./store";
 import Card from "../../components/shared/Card/Card";
@@ -20,6 +20,7 @@ import { MedicamentPrescribed } from "../../interfaces/medicament-prescribed.int
 import { MedicamentSold } from "../../interfaces/medicament-sold.interface";
 import { setSelectedMedicaments } from "./store/stateSlice";
 import { toast } from "../../App";
+import { Button } from "../../components/shared/Button/Button";
 
 injectReducer('sale', reducer)
 injectReducer('patient', reducer)
@@ -94,7 +95,10 @@ const Sales = () => {
           <Flex justify='space-between' align='center' minHeight='60px' w='100%'>
             <Text fontSize='xl' color={textColor} fontWeight='bold'>Venta</Text>
             <Box>
-              <Button isLoading={loadingFile} color='white' bg='teal.300' _hover={{ bg: "teal.200" }} _active={{ bg: "teal.400" }} onClick={handleButtonClick}>
+              <Button
+                isLoading={loadingFile}
+                onClick={handleButtonClick}
+              >
                 Cargar
                 <Tooltip label='Carga tu prescripción para cargar los medicamentos.' fontSize='md'>
                   <QuestionOutlineIcon ml={1}/>
@@ -105,15 +109,15 @@ const Sales = () => {
           </Flex>
         </CardHeader>
         <CardBody>
-          <Flex w="100%" gap={4}>
-            <Flex w='60%'>
+          <Flex w="100%" direction={{ lg: 'row', sm: 'column' }} gap={4}>
+            <Flex w={{ lg: '60%', md: '100%' }}>
               <Flex w='100%' direction="column" gap={10}>
                 <SelectMedicaments />
                 <ListMedicament />
               </Flex>
             </Flex>
             <Divider orientation='vertical'/>
-            <Flex direction="column" w='40%' gap={4}>
+            <Flex direction="column"  w={{ lg: '60%', sm: '100%' }} gap={4}>
               <SelectPatients />
               <PaymentMethod />
               <SalesSummary onSubmit={onSubmit}/>

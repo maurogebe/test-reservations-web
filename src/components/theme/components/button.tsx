@@ -29,5 +29,6 @@ export const buttonStyles = {
         _focus: {
           boxShadow: "none",
         },
+        transition: 'all .5s'
       },
 };

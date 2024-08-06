@@ -1,4 +1,4 @@
-import { Button, Flex, Text, useColorModeValue } from "@chakra-ui/react";
+import { Flex, Text, useColorModeValue } from "@chakra-ui/react";
 import { injectReducer, RootState } from "../../store";
 import reducer from "./store";
 import Card from "../../components/shared/Card/Card";
@@ -15,6 +15,7 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { initialState, setPatientSelected } from "./store/stateSlice";
 import { Allergy } from "../../interfaces/allergy.interface";
+import { Button } from "../../components/shared/Button/Button";
 
 injectReducer('patient', reducer)
 injectReducer('allergy', reducer)
@@ -76,18 +77,7 @@ const Patients = () => {
               onClick={handleSubmit(onSubmit)}
               reset={resetForm}
               button={
-                <Button
-                  color='white'
-                  bg='teal.300'
-                  _hover={{
-                    bg: "teal.200",
-                  }}
-                  _active={{
-                    bg: "teal.400",
-                  }}
-                >
-                  Agregar
-                </Button>
+                <Button text='Agregar'/>
               }
             />
           </Flex>

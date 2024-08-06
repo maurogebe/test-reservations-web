@@ -6,8 +6,10 @@ import {
   DrawerBody,
   DrawerCloseButton,
   DrawerContent,
+  DrawerFooter,
   DrawerHeader,
   Flex,
+  Icon,
   Switch,
   Text,
   useColorMode,
@@ -15,12 +17,21 @@ import {
 import { Separator } from "../Separator/Separator";
 import PropTypes from "prop-types";
 import { useState, useRef } from "react";
+import { ThemeSwitcher } from "./ThemeSwitcher";
+import { FaSignOutAlt } from "react-icons/fa";
+import { RootState } from "../../../store";
+import { useSelector } from "react-redux";
+import useAuth from "../../../utils/hooks/useAuth";
 
 export default function Configurator(props: any) {
   const { secondary, isOpen, onClose, fixed, ...rest } = props;
   const [switched, setSwitched] = useState(props.isChecked);
 
   const { colorMode, toggleColorMode } = useColorMode();
+  const { themeColor, primaryColorLevel } = useSelector((state: RootState) => state.theme.state);
+  
+	const { signOut } = useAuth()
+  
   // Chakra Color Mode
   let fixedDisplay = "flex";
   if (props.secondary) {
@@ -81,8 +92,12 @@ export default function Configurator(props: any) {
                   Toggle {colorMode === "light" ? "Dark" : "Light"}
                 </Button>
               </Flex>
+              <ThemeSwitcher />
             </Flex>
           </DrawerBody>
+          <DrawerFooter>
+            <Icon color={`${themeColor}.${primaryColorLevel}`} as={FaSignOutAlt} w={6} h={6} cursor='pointer' onClick={signOut} />
+          </DrawerFooter>
         </DrawerContent>
       </Drawer>
     </>

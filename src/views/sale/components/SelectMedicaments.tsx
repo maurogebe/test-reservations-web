@@ -14,6 +14,7 @@ export const SelectMedicaments = () => {
 
 	const { medicaments } = useSelector((state: RootState) => state.medicament.data)
 	const { selectedMedicaments } = useSelector((state: RootState) => state.sale.state)
+	const { themeColor, primaryColorLevel } = useSelector((state: RootState) => state.theme.state)
 
   const [search, setSearch] = useState<string>('');
 
@@ -56,7 +57,7 @@ export const SelectMedicaments = () => {
                       textTransform="capitalize"
                       _selected={{ bg: "whiteAlpha.50" }}
                       _focus={{ bg: "whiteAlpha.100" }}
-                      _hover={{ bg: "teal.300" }}
+                      _hover={{ bg: `${themeColor}.${primaryColorLevel}` }}
                     >
                       {medicament.name}
                     </AutoCompleteItem>

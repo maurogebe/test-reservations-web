@@ -11,6 +11,7 @@ import { REDIRECT_URL_KEY } from "../../constants/app.constant";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../../store";
 import useQuery from "./useQuery";
+import { toast } from "../../App";
 
 function useAuth() {
 
@@ -51,6 +52,15 @@ function useAuth() {
         };
       }
     } catch (errors: any) {
+      console.log(errors)
+      if(errors?.response?.status === 401) {
+        toast({
+          title: errors.response?.data?.message,
+          status: 'error',
+          duration: 6000,
+          isClosable: true
+        })
+      }
       return {
         status: "failed",
         message: errors?.response?.data?.message || errors.toString(),

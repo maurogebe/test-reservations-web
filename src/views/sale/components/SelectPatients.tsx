@@ -12,6 +12,7 @@ export const SelectPatients = () => {
 
 	const { patients } = useSelector((state: RootState) => state.patient.data)
 	const { selectedPatient } = useSelector((state: RootState) => state.sale.state)
+	const { themeColor, primaryColorLevel } = useSelector((state: RootState) => state.theme.state)
 
   const [search, setSearch] = useState<string>('');
 
@@ -43,7 +44,7 @@ export const SelectPatients = () => {
             onChange={(e) => handleSearchChange(e.target.value)}
             placeholder="Escribe para buscar..."
           />
-            <AutoCompleteList>
+            <AutoCompleteList _selected={`${selectedPatient?.name}::${selectedPatient?.id}`}>
               {
                 patients
                   ?.filter((patient: Patient) => !(selectedPatient?.id == patient.id))
@@ -54,7 +55,7 @@ export const SelectPatients = () => {
                       textTransform="capitalize"
                       _selected={{ bg: "whiteAlpha.50" }}
                       _focus={{ bg: "whiteAlpha.100" }}
-                      _hover={{ bg: "teal.300" }}
+                      _hover={{ bg: `${themeColor}.${primaryColorLevel}` }}
                     >
                       {patient.name}
                     </AutoCompleteItem>

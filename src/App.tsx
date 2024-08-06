@@ -14,8 +14,8 @@ function App() {
 			<PersistGate loading={null} persistor={persistor}>
 				<BrowserRouter>
 					<ChakraProvider>
-    				<ToastContainer />
-          	<RoutesWrapper />
+						<ToastContainer />
+						<RoutesWrapper />
 					</ChakraProvider>
 				</BrowserRouter >
 			</PersistGate>

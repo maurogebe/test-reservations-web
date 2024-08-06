@@ -5,25 +5,24 @@ import Card from "../../components/shared/Card/Card";
 import CardHeader from "../../components/shared/Card/CardHeader";
 import CardBody from "../../components/shared/Card/CardBody";
 import { useDispatch } from "react-redux";
+import { createMedicament, getMedicaments } from "./store/dataSlice";
 import { useEffect } from "react";
 import { Modal } from "../../components/shared/Modal/Modal";
-import { FormAllergy } from "./components/FormAllergy";
-import { TableAllergy } from "./components/TableAllergy";
+import { FormMedicament } from "./components/FormMedicament";
+import { TableMedicament } from "./components/TableMedicament";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
-import { initialState, setAllergySelected } from "./store/stateSlice";
-import { createAllergy, getAllergies } from "./store/dataSlice";
+import { initialState, setMedicamentSelected } from "./store/stateSlice";
 import { Button } from "../../components/shared/Button/Button";
 
-injectReducer('allergy', reducer)
+injectReducer('bidding', reducer)
 
 const schema = yup.object().shape({
-  name: yup.string().required("Nombre es requerido"),
-  description: yup.string().required("Descripción es requerido")
+  name: yup.string().required("Nombre es requerido")
 });
 
-const Allergies = () => {
+const Bidding = () => {
 
   const textColor = useColorModeValue("gray.700", "white");
 	const dispatch = useDispatch()
@@ -33,16 +32,16 @@ const Allergies = () => {
   });
 
 	useEffect(() => {
-		dispatch(getAllergies())
+		dispatch(getMedicaments())
 	}, [])
 
   const resetForm = () => {
-    dispatch(setAllergySelected(initialState.allergySelected))
-    reset(initialState.allergySelected)
+    dispatch(setMedicamentSelected(initialState.medicamentSelected))
+    reset(initialState.medicamentSelected)
   }
 
   const onSubmit = async(data: any) => {
-    await dispatch(createAllergy(data));
+    await dispatch(createMedicament(data));
   }
 
   return (
@@ -50,10 +49,10 @@ const Allergies = () => {
       <Card overflowX={{ sm: "scroll", xl: "hidden" }}>
         <CardHeader p='6px 0px 22px 0px'>
           <Flex justify='space-between' align='center' minHeight='60px' w='100%'>
-            <Text fontSize='xl' color={textColor} fontWeight='bold'>Alergias</Text>
+            <Text fontSize='xl' color={textColor} fontWeight='bold'>Medicamentos</Text>
             <Modal
-              title="Crear Alergia"
-              content={<FormAllergy reset={reset} register={register} errors={errors} />}
+              title="Crear Medicamento"
+              content={<FormMedicament reset={reset} register={register} errors={errors} />}
               textBtn="Crear"
               onClick={handleSubmit(onSubmit)}
               reset={resetForm}
@@ -64,7 +63,7 @@ const Allergies = () => {
           </Flex>
         </CardHeader>
         <CardBody>
-          <TableAllergy
+          <TableMedicament
             reset={reset}
             register={register}
             errors={errors}
@@ -76,4 +75,4 @@ const Allergies = () => {
   );
 };
 
-export default Allergies;
+export default Bidding;

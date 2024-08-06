@@ -1,12 +1,14 @@
-import { Box, Button, Flex, Stack, Text } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store";
 import { useEffect, useState } from "react";
 import { MedicamentSold } from "../../../interfaces/medicament-sold.interface";
+import { Button } from "../../../components/shared/Button/Button";
 
 export const SalesSummary = ({ onSubmit }: any) => {
 
 	const { selectedMedicaments } = useSelector((state: RootState) => state.sale.state)
+	const { loading } = useSelector((state: RootState) => state.sale.data)
 
   const [subTotal, setSubTotal] = useState<number>(0)
 
@@ -30,7 +32,7 @@ export const SalesSummary = ({ onSubmit }: any) => {
           <Text fontSize="lg">Total:</Text>
           <Text fontSize="lg">${(subTotal + (subTotal * .19)).toFixed(2)}</Text>
         </Flex>
-        <Button bg='teal.300' colorScheme="teal" w="100px" alignSelf="flex-end" onClick={onSubmit}>Vender</Button>
+        <Button text='Agregar' isLoading={loading} w="100px" alignSelf="flex-end" onClick={onSubmit}/>
       </Flex>
     </Box>
   )

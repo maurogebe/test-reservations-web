@@ -1,5 +1,6 @@
 import { useRef } from "react"
-import { Box, Button, ModalBody, Modal as ModalChakra, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure } from "@chakra-ui/react"
+import { Box, Button as ButtonChakra, ModalBody, Modal as ModalChakra, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure } from "@chakra-ui/react"
+import { Button } from "../Button/Button"
 
 export const Modal = ({ title, reset = () => {}, content, button, textBtn, onClick = () => {} }: any) => {
 
@@ -42,10 +43,10 @@ export const Modal = ({ title, reset = () => {}, content, button, textBtn, onCli
           </ModalBody>
 
           <ModalFooter justifyContent="center">
-            <Button colorScheme='blue' mr={3} onClick={onClickBtn}>
+            <Button mr={3} onClick={onClickBtn}>
               { textBtn }
             </Button>
-            <Button onClick={onClose}>Cancelar</Button>
+            <ButtonChakra onClick={onClose}>Cancelar</ButtonChakra>
           </ModalFooter>
         </ModalContent>
       </ModalChakra>
