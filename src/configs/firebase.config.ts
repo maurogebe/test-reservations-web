@@ -1,17 +1,28 @@
-// Import the functions you need from the SDKs you need
+import { getAuth, onIdTokenChanged, signOut } from "firebase/auth";
 import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import store from "../store";
+import { onSignInSuccess } from "../store/auth/sessionSlice";
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBUdwcMS7RdioRZPMTVNhz0u1PhpwoVXEQ",
-  authDomain: "quickpharma-b8686.firebaseapp.com",
-  projectId: "quickpharma-b8686",
-  storageBucket: "quickpharma-b8686.appspot.com",
-  messagingSenderId: "385620055580",
-  appId: "1:385620055580:web:f25bb00ce7fc4b50c6f1d9"
+  apiKey: "AIzaSyD5R5uyVtxPxvLlYrXZKJ70VLGL7BwwmoY",
+  authDomain: "apps-personales-709a6.firebaseapp.com",
+  projectId: "apps-personales-709a6",
+  storageBucket: "apps-personales-709a6.appspot.com",
+  messagingSenderId: "145756375395",
+  appId: "1:145756375395:web:7c860283e33efb5e872b56"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
+export const auth = getAuth(app)
+
+function updateIdToken(token: string) {
+  store.dispatch(onSignInSuccess(token));
+}
+
+onIdTokenChanged(auth, (user) => {
+  if (user) {
+    user.getIdToken().then(updateIdToken);
+  } else {
+    signOut(auth)
+  }
+});

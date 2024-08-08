@@ -15,13 +15,15 @@ import {
   FormLabel,
   useColorModeValue,
   InputGroup,
-  InputRightElement
+  InputRightElement,
+  Icon
 } from "@chakra-ui/react";
 import useAuth from "../../../utils/hooks/useAuth";
 import { signInImage } from "../../../assets/images";
 import { useEffect, useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { useConfig } from "../../../utils/hooks/useConfig";
+import { FaGoogle } from "react-icons/fa";
 
 injectReducer('signin', reducer)
 
@@ -32,7 +34,7 @@ const schema = yup.object().shape({
 
 const SignIn = () => {
 
-  const { signIn } = useAuth();
+  const { signIn, signInWithGoogle } = useAuth();
   const textColor = useColorModeValue("gray.400", "white");
   const { themeColor, primaryColorLevel } = useConfig()
 
@@ -47,7 +49,11 @@ const SignIn = () => {
   });
 
   const onSubmit = (data: any) => {
-    signIn(data)
+    // signIn(data)
+  }
+
+  const onSubmitWithGoogle = () => {
+    signInWithGoogle()
   }
 
   return (
@@ -61,6 +67,7 @@ const SignIn = () => {
         mb='30px'
         pt={{ sm: "100px", md: "0px" }}>
         <Flex
+          direction='column'
           alignItems='center'
           justifyContent='start'
           style={{ userSelect: "none" }}
@@ -140,6 +147,10 @@ const SignIn = () => {
                   Iniciar sesión
                 </Button>
             </Box>
+          </Flex>
+          <Flex direction='column' alignItems='center' gap={4}>
+            <Text>Inicia con:</Text>
+            <Icon as={FaGoogle} cursor='pointer' onClick={onSubmitWithGoogle} />
           </Flex>
         </Flex>
         <Box

@@ -12,6 +12,8 @@ import { MainPanelComponent } from './additions/layout/MainPanel';
 import { PanelContentComponent } from './additions/layout/PanelContent';
 import { PanelContainerComponent } from './additions/layout/PanelContainer';
 import { mode } from '@chakra-ui/theme-tools';
+import { PaginationStyles } from './additions/table/Pagination';
+import { TableStyles } from './additions/table/Table';
 
 export default extendTheme({
   breakpoints,
@@ -32,6 +34,8 @@ export default extendTheme({
 		}
 	},
   components: {
+    Table: TableStyles,
+    Pagination: PaginationStyles,
     Button: buttonStyles,
     Badge: badgeStyles,
     Link: linkStyles,

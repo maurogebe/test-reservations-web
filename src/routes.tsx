@@ -1,11 +1,8 @@
 import { lazy, ReactElement } from 'react';
-import { CartIcon, DocumentIcon, HomeIcon, PersonIcon, StatsIcon } from "./components/template/Icons/Icons";
+import { HomeIcon, StatsIcon } from "./components/template/Icons/Icons";
 
 const Dashboard = lazy(() => import("./views/dashboard"));
-const Allergies = lazy(() => import("./views/allergy"));
-const Patients = lazy(() => import("./views/patient"));
-const Medicaments = lazy(() => import("./views/medicament"));
-const Sales = lazy(() => import("./views/sale"));
+const BiddingList = lazy(() => import("./views/bidding/BiddingList"));
 
 export interface Route {
   path: string;
@@ -28,32 +25,11 @@ const dashRoutes: Route[] = [
     component: Dashboard,
   },
   {
-    path: "/allergy",
-    name: "Alergias",
+    path: "/bidding",
+    name: "Subastas",
     protected: true,
     icon: <StatsIcon color="inherit" />,
-    component: Allergies,
-  },
-  {
-    path: "/patient",
-    name: "Pacientes",
-    protected: true,
-    icon: <PersonIcon color="inherit" />,
-    component: Patients,
-  },
-  {
-    path: "/medicament",
-    name: "Medicamentos",
-    protected: true,
-    icon: <DocumentIcon color="inherit" />,
-    component: Medicaments,
-  },
-  {
-    path: "/sale",
-    name: "Venta",
-    protected: true,
-    icon: <CartIcon color="inherit" />,
-    component: Sales,
+    component: BiddingList,
   },
 ];
 

@@ -1,10 +1,7 @@
 import { useRef } from "react"
-import { Box, Button as ButtonChakra, ModalBody, Modal as ModalChakra, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure } from "@chakra-ui/react"
-import { Button } from "../Button/Button"
+import { Box, ModalBody, Modal as ModalChakra, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from "@chakra-ui/react"
 
-export const Modal = ({ title, reset = () => {}, content, button, textBtn, onClick = () => {} }: any) => {
-
-  const { isOpen, onOpen, onClose } = useDisclosure()
+export const Modal = ({ onOpen, onClose, isOpen, title, reset = () => {}, content, button, actions }: any) => {
   
   const initialRef = useRef<any>(null)
   const finalRef = useRef<any>(null)
@@ -12,15 +9,6 @@ export const Modal = ({ title, reset = () => {}, content, button, textBtn, onCli
   const onOpenFn = () => {
     onOpen();
     reset();
-  }
-
-  const onClickBtn = async() => {
-    try {
-      await onClick();
-      onClose();
-    } catch (error) {
-      console.log(error)
-    }
   }
 
   return (
@@ -36,18 +24,19 @@ export const Modal = ({ title, reset = () => {}, content, button, textBtn, onCli
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader textAlign="center">{ title }</ModalHeader>
+          <ModalHeader textAlign="center" fontSize='x-large'>{ title }</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
             { content }
           </ModalBody>
 
-          <ModalFooter justifyContent="center">
-            <Button mr={3} onClick={onClickBtn}>
-              { textBtn }
-            </Button>
-            <ButtonChakra onClick={onClose}>Cancelar</ButtonChakra>
-          </ModalFooter>
+          {
+            actions && (
+              <ModalFooter justifyContent="center">
+                { actions }
+              </ModalFooter>
+            )
+          }
         </ModalContent>
       </ModalChakra>
     </>

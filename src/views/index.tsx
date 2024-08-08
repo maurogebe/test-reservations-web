@@ -4,14 +4,12 @@ import SignIn from "./auth/SignIn";
 import ProtectedRoute from "../components/routes/ProtectedRoute";
 import PublicRoute from "../components/routes/PublicRoute";
 import Dashboard from "./dashboard";
-import Medicaments from "./medicament";
-import Allergies from "./allergy";
-import Patients from "./patient";
-import Sales from "./sale";
 import ConfigProvider from "../utils/hooks/useConfig";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
 import { themeConfig } from "../constants/theme.constant";
+import BiddingList from "./bidding/BiddingList";
+import BiddingDetail from "./bidding/BiddingDetail";
 
 export const routes = (): RouteObject[] => [
   {
@@ -23,10 +21,8 @@ export const routes = (): RouteObject[] => [
         element: <Layout />,
         children: [
           { path: '/dashboard', element: <Dashboard /> },
-          { path: '/allergy', element: <Allergies /> },
-          { path: '/patient', element: <Patients /> },
-          { path: '/medicament', element: <Medicaments /> },
-          { path: '/sale', element: <Sales /> },
+          { path: '/bidding', element: <BiddingList /> },
+          { path: '/bidding/:id', element: <BiddingDetail /> },
         ]
       },
     ]

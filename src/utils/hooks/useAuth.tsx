@@ -12,6 +12,8 @@ import { useNavigate } from "react-router-dom";
 import { RootState } from "../../store";
 import useQuery from "./useQuery";
 import { toast } from "../../App";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { auth } from "../../configs/firebase.config";
 
 function useAuth() {
 
@@ -20,6 +22,33 @@ function useAuth() {
 	const query = useQuery()
 
   const { token, signedIn }: AuthState = useSelector((state: RootState) => state.auth.session);
+  
+  const provider = new GoogleAuthProvider();
+
+  const signInWithGoogle = async() => {
+    const signInGoogle = await signInWithPopup(auth, provider);
+    let token: string | null = null;
+    if(auth?.currentUser) token = await auth.currentUser.getIdToken();
+    if (token && signInGoogle) {
+      const user = signInGoogle.user;
+      dispatch(onSignInSuccess(token));
+        if (user) {
+          dispatch(
+            setUser({
+              avatar: user.photoURL,
+              userName: user.displayName,
+              authority: ["USER"],
+              email: user.email
+            }));
+        }
+        const redirectUrl = query.get(REDIRECT_URL_KEY);
+        navigate(redirectUrl ? redirectUrl : appConfig.authenticatedEntryPath);
+        return {
+          status: "success",
+          message: "",
+        };
+    }
+  }
 
   const signIn = async ({ email, password }: any) => {
     try {
@@ -52,7 +81,6 @@ function useAuth() {
         };
       }
     } catch (errors: any) {
-      console.log(errors)
       if(errors?.response?.status === 401) {
         toast({
           title: errors.response?.data?.message,
@@ -77,6 +105,7 @@ function useAuth() {
   return {
     authenticated: token && signedIn,
     signIn,
+    signInWithGoogle,
     signOut
   };
 }
