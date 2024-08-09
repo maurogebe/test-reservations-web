@@ -17,7 +17,11 @@ const initialState: DataState = {
     total: 0,
     pageIndex: 1,
     pageSize: 10,
-    query: ''
+    query: '',
+    sort: {
+      order: '',
+      key: ''
+    }
   }
 };
 
