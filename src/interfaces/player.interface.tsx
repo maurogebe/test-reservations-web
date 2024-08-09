@@ -4,16 +4,17 @@ import { Nationality } from "./nationality.interface";
 import { Position } from "./position.interface";
 
 export interface Player {
-  id: string,
+  id: number,
   firstName: string,
-  lastName: string,
-  overallRating: number
-  skillMoves: number,
-  avatarUrl: string,
+  lastName?: string,
+  overallRating?: number
+  skillMoves?: number,
+  avatarUrl?: string,
   shieldUrl?: string,
-  nationality: Nationality,
-  position: Position,
-  club: Club
+  nationality?: Nationality,
+  position?: Position,
+  club?: Club,
+  orderTeam?: number
 }
 
 export interface ResponseGetPlayers {

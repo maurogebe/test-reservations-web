@@ -1,7 +1,8 @@
 import { lazy, ReactElement } from 'react';
-import { HomeIcon, StatsIcon } from "./components/template/Icons/Icons";
+import { CartIcon, HomeIcon, StatsIcon } from "./components/template/Icons/Icons";
 
 const Dashboard = lazy(() => import("./views/dashboard"));
+const Team = lazy(() => import("./views/team"));
 const BiddingList = lazy(() => import("./views/bidding/BiddingList"));
 
 export interface Route {
@@ -25,10 +26,17 @@ const dashRoutes: Route[] = [
     component: Dashboard,
   },
   {
+    path: "/team",
+    name: "Equipo",
+    protected: true,
+    icon: <StatsIcon color="inherit" />,
+    component: Team,
+  },
+  {
     path: "/bidding",
     name: "Subastas",
     protected: true,
-    icon: <StatsIcon color="inherit" />,
+    icon: <CartIcon color="inherit" />,
     component: BiddingList,
   },
 ];

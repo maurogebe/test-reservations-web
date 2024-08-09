@@ -12,6 +12,7 @@ import { useParams } from "react-router-dom";
 import { Modal } from "../../../components/shared/Modal/Modal";
 import { FormBid } from "./components/FormBid";
 import { setBidSelected } from "./store/stateSlice";
+import { NumericFormat } from "react-number-format";
 
 injectReducer('biddingDetail', reducer)
 
@@ -23,7 +24,7 @@ const BiddingDetail = () => {
 
   const [selectedTab, setSelectedTab] = useState<string>('all');
 
-	const { bidding } = useSelector((state: RootState) => state.biddingDetail.data)
+	const { bidding, amount } = useSelector((state: RootState) => state.biddingDetail.data)
 	const { pageIndex, pageSize, sort, query, total } = useSelector((state: RootState) => state.biddingDetail.data.tableData)
 	const { themeColor, primaryColorLevel } = useSelector((state: RootState) => state.theme.state)
 
@@ -64,6 +65,15 @@ const BiddingDetail = () => {
         <CardHeader p='6px 0px 22px 0px'>
           <Flex direction='column' w='100%' gap={4}>
             <Text fontSize='2xl' color={textColor} fontWeight='bold'>{ bidding?.name }</Text>
+            <Text fontSize='xl' color={textColor} fontWeight='bold'>
+              Saldo: 
+              <NumericFormat
+                displayType="text"
+                value={amount || 0}
+                prefix=" $"
+                thousandSeparator
+              />
+            </Text>
             <Tabs variant='soft-rounded' colorScheme='green' onChange={(index: number) => setSelectedTab(index === 0 ? 'all' : index === 1 ? 'myBids' : 'noBid')}>
               <TabList>
                 <Tab color={textColor} _selected={{ color: 'white', bg: `${themeColor}.${primaryColorLevel}` }}>Todos</Tab>

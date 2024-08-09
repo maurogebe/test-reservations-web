@@ -39,7 +39,7 @@ jobs:
     - name: Deploy
       run: |
         npm run build
-        firebase use quickpharma-b8686
+        firebase use apps-personales-709a6
         firebase deploy --only hosting
       env:
         CI: false

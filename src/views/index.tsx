@@ -10,6 +10,7 @@ import { RootState } from "../store";
 import { themeConfig } from "../constants/theme.constant";
 import BiddingList from "./bidding/BiddingList";
 import BiddingDetail from "./bidding/BiddingDetail";
+import Team from "./team";
 
 export const routes = (): RouteObject[] => [
   {
@@ -21,6 +22,7 @@ export const routes = (): RouteObject[] => [
         element: <Layout />,
         children: [
           { path: '/dashboard', element: <Dashboard /> },
+          { path: '/team', element: <Team /> },
           { path: '/bidding', element: <BiddingList /> },
           { path: '/bidding/:id', element: <BiddingDetail /> },
         ]
