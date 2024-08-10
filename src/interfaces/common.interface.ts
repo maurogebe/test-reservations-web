@@ -3,7 +3,7 @@ export interface TableData {
   pageIndex: number,
   pageSize: number,
   query: string,
-  sort?: {
+  sort: {
     order: string,
     key: string
   }
