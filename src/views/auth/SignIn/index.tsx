@@ -49,11 +49,7 @@ const SignIn = () => {
   });
 
   const onSubmit = (data: any) => {
-    // signIn(data)
-  }
-
-  const onSubmitWithGoogle = () => {
-    signInWithGoogle()
+    signIn(data)
   }
 
   return (
@@ -147,10 +143,6 @@ const SignIn = () => {
                   Iniciar sesión
                 </Button>
             </Box>
-          </Flex>
-          <Flex direction='column' alignItems='center' gap={4}>
-            <Text>Inicia con:</Text>
-            <Icon as={FaGoogle} cursor='pointer' onClick={onSubmitWithGoogle} />
           </Flex>
         </Flex>
         <Box

@@ -1,25 +1,24 @@
 import { useEffect } from "react";
 import { Flex, Text, useDisclosure } from "@chakra-ui/react";
 import { injectReducer } from "../../store";
-import reducer from "./store";
 import Card from "../../components/shared/Card/Card";
 import CardBody from "../../components/shared/Card/CardBody";
-import { FormSearch } from "./components/FormSearch";
 import { useDispatch } from "react-redux";
-import { getCities } from "./store/dataSlice";
-import { RoomList } from "./components/RoomList";
+import { ReservationTable } from "./components/ReservationTable";
+import { getReservations } from "./store/dataSlice";
+import reducer from "./store";
 import { FormReservation } from "./components/FormReservation";
 
-injectReducer('dashboard', reducer)
+injectReducer('reservation', reducer)
 
-const Dashboard = () => {
+const Reservations = () => {
 
   const dispatch = useDispatch();
   
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   useEffect(() => {
-    dispatch(getCities());
+    dispatch(getReservations());
   }, [])
 
   return (
@@ -27,14 +26,9 @@ const Dashboard = () => {
       <Card minH='83px'>
         <CardBody>
           <Flex flexDirection='column' w='100%' gap={4}>
-            <Text fontSize='1.75rem' fontWeight='bold'>Hoteles</Text>
-            <FormSearch />
-            <RoomList onOpen={onOpen} />
-            <FormReservation
-              onOpen={onOpen}
-              onClose={onClose}
-              isOpen={isOpen}
-            />
+            <Text fontSize='1.75rem' fontWeight='bold'>Reservaciones</Text>
+            <ReservationTable onOpenEdit={onOpen} />
+            <FormReservation onOpen={onOpen} onClose={onClose} isOpen={isOpen} />
           </Flex>
         </CardBody>
       </Card>
@@ -42,4 +36,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Reservations;

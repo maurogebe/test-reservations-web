@@ -1,9 +1,10 @@
 import axios from 'axios';
-import deepParseJson from '../utils/deepParseJson';
 import { onSignOutSuccess } from '../store/auth/sessionSlice';
 import store from '../store';
 
 const unauthorizedCode = [401]
+const notFoundCode = [404]
+const errorCode = [500, 501, 502, 503, 504, 505]
 
 const BaseService = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
@@ -11,12 +12,10 @@ const BaseService = axios.create({
 
 BaseService.interceptors.request.use(config => {
 
-  const rawPersistData = localStorage.getItem('admin')
-  const persistData = deepParseJson(rawPersistData)
-  
-  const accessToken = persistData.auth.session.token
+  const state = store.getState();
 
-  if (accessToken) {
+  const accessToken = state.auth.session.token;
+  if (accessToken && accessToken !== '') {
       config.headers.Authorization = `Bearer ${accessToken}`
   }
   
@@ -31,7 +30,7 @@ BaseService.interceptors.response.use(
 
       const { response } = error
 
-      if (response && unauthorizedCode.includes(response.status)) {
+      if (response && (unauthorizedCode.includes(response.status) || notFoundCode.includes(response.status))) {
           store.dispatch(onSignOutSuccess())
       }
 

@@ -8,9 +8,7 @@ import ConfigProvider from "../utils/hooks/useConfig";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
 import { themeConfig } from "../constants/theme.constant";
-import BiddingList from "./bidding/BiddingList";
-import BiddingDetail from "./bidding/BiddingDetail";
-import Team from "./team";
+import Reservations from "./reservations";
 
 export const routes = (): RouteObject[] => [
   {
@@ -22,9 +20,7 @@ export const routes = (): RouteObject[] => [
         element: <Layout />,
         children: [
           { path: '/dashboard', element: <Dashboard /> },
-          { path: '/team', element: <Team /> },
-          { path: '/bidding', element: <BiddingList /> },
-          { path: '/bidding/:id', element: <BiddingDetail /> },
+          { path: '/reservation', element: <Reservations /> }
         ]
       },
     ]

@@ -51,7 +51,7 @@ const DataTable = (props: any) => {
       initialState: {
         pageIndex,
         pageSize,
-        sortBy: [{ id: sort.key, desc: sort.order === 'desc' }]
+        sortBy: [{ id: sort?.key, desc: sort?.order === 'desc' }]
       },
 			manualPagination: true,
 			manualSortBy: true,
